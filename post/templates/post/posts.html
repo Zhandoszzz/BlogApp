@@ -1,0 +1,44 @@
+{% extends 'post/base.html' %}
+{% block content %}
+<div class="container">
+{% for post in posts %}
+    <div class="card mb-3">
+        <h1 class="card-title">{{post.title}}</h1>
+        {% for cat in post.cat.all %}
+          <a style="text-decoration: none" href="{{cat.get_absolute_url}}"><small class="text-muted">#{{cat.name}} </small></a>
+        {% endfor %}
+        <img class="card-img-top img-fluid" style="height: 500px" src="{{post.photo.url}}" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text fs-5">{{post.content | truncatewords:100}}</p>
+        <p class="card-text"><small class="text-muted">{{post.time_created}}</small><a class="float-end" href="{{ post.get_absolute_url }}">read</a></p>
+      </div>
+    </div>
+
+{%endfor%}
+</div>
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+      {%if page_obj.has_previous%}
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.previous_page_number}}" >Previous</a>
+    </li>
+      {% endif %}
+      {%for p in paginator.page_range%}
+        {% if p == page_obj.number %}
+            <li class="page-item active"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+            <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+        {% endif %}
+      {%endfor%}
+      {%if page_obj.has_next%}
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+    </li>
+      {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+
+{% endblock %}

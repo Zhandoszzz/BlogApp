@@ -1,0 +1,17 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card mb-3">
+        <h1 class="card-title">{{post.title}}</h1>
+        {% for cat in post.cat.all %}
+          <a style="text-decoration: none" href="{{cat.get_absolute_url}}"><small class="text-muted">#{{cat.name}} </small></a>
+        {% endfor %}
+        <img class="card-img-top img-fluid" style="height: 500px" src="{{post.photo.url}}" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text fs-5">{{post.content}}</p>
+        <p class="card-text"><small class="text-muted">{{post.time_created}}</small></p>
+      </div>
+    </div>
+</div>
+{% endblock %}
