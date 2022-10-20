@@ -13,5 +13,30 @@
         <p class="card-text"><small class="text-muted">{{post.time_created}}</small></p>
       </div>
     </div>
+    {% if request.user.is_authenticated %}
+        <form method="post" class="my-3">
+            {% csrf_token %}
+            <textarea class="form-control" rows="3" id="comment" placeholder="Add a comment..." name="text"></textarea>
+            <button type="submit" class="btn btn-primary my-1">Comment</button>
+        </form>
+    {% endif %}
+    {% if post.comments.all %}
+    {% for comment in post.comments.all %}
+        <div class=" mb-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <p class="small mb-0 ms-2">{{comment.user.username}} - {{comment.time_created}}</p>
+              </div>
+            </div>
+              <p class=" mb-0 ms-2">{{comment.content}}</p>
+          </div>
+        </div>
+
+    {% endfor %}
+    {% else %}
+    hi
+    {% endif%}
 </div>
+
 {% endblock %}

@@ -20,10 +20,14 @@
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
         </form>
         {% if request.user.is_authenticated %}
-          <div class="text-end">
-            Welcome,{{user.username}}!
-            <a class="btn btn-outline-light me-2" href="{% url 'logout' %}"> Log out</a>
-        </div>
+            <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome,{{user.username}}!
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                  </ul>
+            </div>
         {% else %}
         <div class="text-end">
             <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>

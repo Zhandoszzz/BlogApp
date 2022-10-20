@@ -14,6 +14,8 @@ class CatAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     prepopulated_fields = {"slug": ("name",)}
 
+
+
 admin.site.register(Category, CatAdmin)
 admin.site.register(Post, PostAdmin)
-
+admin.site.register(Comment)

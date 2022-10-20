@@ -19,3 +19,8 @@ class LoginUserForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ("username","password1")
+
+class AddComment(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = '__all__'
