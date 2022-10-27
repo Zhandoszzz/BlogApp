@@ -14,14 +14,13 @@
       </div>
     </div>
     {% if request.user.is_authenticated %}
-        <form method="post" class="my-3">
+        <form action="{% url 'add_comment' post.slug %}" method="post" class="my-3">
             {% csrf_token %}
-            <textarea class="form-control" rows="3" id="comment" placeholder="Add a comment..." name="text"></textarea>
+            {{form}}
             <button type="submit" class="btn btn-primary my-1">Comment</button>
         </form>
     {% endif %}
-    {% if post.comments.all %}
-    {% for comment in post.comments.all %}
+    {% for comment in post.comments.all reversed %}
         <div class="mb-2">
           <div class="card-body">
             <div class="d-flex justify-content-between">
@@ -34,9 +33,6 @@
         </div>
 
     {% endfor %}
-    {% else %}
-    hi
-    {% endif%}
 </div>
 
 {% endblock %}

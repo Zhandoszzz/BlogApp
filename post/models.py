@@ -32,14 +32,17 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
 
+
+
+
 class Comment(models.Model):
     content = models.TextField()
     time_created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name="users",on_delete=models.CASCADE)
     post = models.ForeignKey('Post',related_name="comments", on_delete=models.CASCADE)
     def __str__(self):
-        return self.post.title + " - Comment"
+        return '%s - %s' % (self.post.title,self.user.username)
 
-    def get_absolute_url(self):
-        return reverse('post_page', kwargs={'post_slug': self.post.slug})
+    class Meta:
+        ordering = ["time_created",]
 
